@@ -1,0 +1,108 @@
+{% load static %}
+<style>
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown:hover>.dropdown-menu>.dropdown-item:hover{
+  background-color: #fe0!important;
+  color:black!important;
+}
+
+.navbar-dark .navbar-nav .active>.nav-link{
+  color:#f5cc04!important;
+}
+.navbar-dark .navbar-nav .nav-link {
+    opacity: .9999;
+    color: #000;
+    transition: opacity .3s ease-out;
+}
+.navbar-dark .navbar-nav .nav-link:hover {
+    color:#8d8b7e!important;
+}
+.font-normal {
+  font-size: 14.5px;
+  /* color:#000; */
+}
+
+.form-control{
+  font-size: 14px;
+}
+
+.zeenavbar{
+  background-color:#fff!important;padding:25px 10px;border-bottom: 1px solid rgb(196, 188, 188);
+}
+
+.navdrops {width:auto; height:16px; margin-top: -5px;}
+
+.signupbtn{margin-top:-5px; background-color:#0361f9; color:white; padding:5px 10px;border-radius: 5px;}
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top zeenavbar" >
+  <a class="navbar-brand" href="{% url 'mainapp:homepage' %}">
+    <img src="{% static 'img/logo.png' %}" class="img-fluid" style="width:200px;height:auto">
+  </a>
+  <button class="navbar-toggler" type="button" style="background-color: black;" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {{home_page}}">
+        <a class="nav-link font-normal" href="{% url 'mainapp:homepage' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown {{challenge_page}}">
+        <a class="nav-link font-normal dropdown-toggle" href="{% url 'mainapp:challenges' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Challenges
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item font-normal" href="{% url 'mainapp:challenges' %}">
+            <img src="{% static 'img/all.png' %}" class="navdrops">&nbsp;&nbsp;All Challenges
+          </a>
+          <a class="dropdown-item font-normal" href="{% url 'mainapp:open-challenges' %}">
+            <img src="{% static 'img/open.png' %}" class="navdrops">&nbsp;&nbsp;Open Challenges
+          </a>
+          <a class="dropdown-item font-normal" href="{% url 'mainapp:rolling' %}">
+            <img src="{% static 'img/rolling.png' %}" class="navdrops">&nbsp;&nbsp;Rolling Challenges
+          </a>
+          <a class="dropdown-item font-normal"  href="{% url 'mainapp:coming-soon' %}">
+            <img src="{% static 'img/soon.png' %}" class=" navdrops">&nbsp;&nbsp;Coming Soon
+          </a>
+          <a class="dropdown-item font-normal" href="{% url 'mainapp:archived' %}">
+            <img src="{% static 'img/archive.png' %}" class="navdrops">&nbsp;&nbsp;Archived Challenges
+          </a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link font-normal" href="{% url 'mainapp:about' %}">About</a>
+      </li>
+      <li class="nav-item"><a class="nav-link font-normal" href="{% url 'news:news' %}">News</a></li>
+      {% if not user.is_authenticated %}
+
+      <li class="nav-item"><a class="nav-link font-normal" href="{% url 'users:account_login' %}">Login</a></li>
+      <li class="nav-link"><a class="font-normal signupbtn" href="{% url 'users:account_signup' %}">Sign Up</a></li>
+
+
+      {% else %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle font-normal" id="samDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          My Account
+        </a>
+        <div class="dropdown-menu" aria-labelledby="samDropdown">
+          <a class="dropdown-item {{account_page}} font-normal" href="{% url 'userprofiles:profile' %}">
+            <img src="{% static 'img/user.png' %}" class="navdrops">&nbsp;My Profile
+          </a>
+          <a class="dropdown-item font-normal" href="{% url 'account_logout' %}?next=/">
+            <img src="{% static 'img/lock.png' %}" class="navdrops">&nbsp;Logout
+          </a>
+      </li>
+      {% endif %}
+      &nbsp;&nbsp;&nbsp;
+      <li class="nav-item">
+        <a href="{% url 'mainapp:submit-a-challenge' %}" target="_blank" class="nav-link font-normal" style="background-color:#fe0; color:black; padding:10px 10px;border-radius: 5px;">
+          <i class="fas fa-paper-plane"></i>&nbsp;Submit a Challenge</a></li>
+    </ul>
+    <form action="{% url 'mainapp:search_results' %}" method="get" class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" name="q" type="text" placeholder="Search Tags, Audience, Status or Keywords" aria-label="Search..." style="width:300px; ">
+      <button class="btn btn-warning my-2 my-sm-0 font-normal" type="submit">Search</button>
+    </form>
+  </div>
+</nav>

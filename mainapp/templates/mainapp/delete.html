@@ -1,0 +1,15 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="container">
+  <p>Are you sure you want to delete <b>{{the_item.title}}</b> post?</p>
+  <form method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" class="btn btn-danger" value="submit">&nbsp;&nbsp;<a href="{% url 'mainapp:homepage' %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}

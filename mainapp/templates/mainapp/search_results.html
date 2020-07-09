@@ -1,0 +1,50 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% load highlighter %}
+{% block content %}
+{% include 'mainapp/navbar.html' %}
+
+<br><br><br><br>
+<div class="container">
+  <h2><b>Here are your search results:</b></h2>
+  <br>
+
+
+
+  <div class="row">
+    {% for object in posts.object_list %}
+    <div class="col-12 mx-auto">
+      <h3><a href="{% url 'mainapp:detail' object.id object.slug %}">{{object.title|highlight:query}}</a></h3>
+      <p class="small">Tags: {% for tag in object.tags.all %}{{tag.name|highlight:query}}&nbsp;{% endfor %}</p>
+      <p class="small">Audience: {{object.targeted_audience.name|highlight:query}}&nbsp;</p>
+      <p class="small">Status: {{object.status|highlight:query}}&nbsp;</p>
+      <p><a href="{% url 'mainapp:detail' object.id object.slug %}" style="color:#000;">{{object.challenge_summary|truncatewords:"20"|highlight:query}}</a></p>
+      <hr>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- THIS BELOW IS THE ADDED PART -->
+  <br><br><br>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+    {% if posts.has_previous %}
+    <li class="page-item"><a class="page-link" tabindex="-1" href="?q={{query}}&amp;page={{posts.previous_page_number}}">Previous</a></li>
+    {% endif %}
+    {% for pg in posts.paginator.page_range %}
+      {% if posts.number == pg %}
+        <li class="active page-item"><a class="page-link" href="?q={{query}}&amp;page={{pg}}">{{pg}}</a></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?q={{query}}&amp;page={{pg}}">{{pg}}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if posts.has_next %}
+      <li class="page-item"><a class="page-link" href="?q={{query}}&amp;page={{posts.next_page_number}}">Next</a></li>
+    {% endif %}
+  </ul>
+  </nav>
+
+  <!-- THIS ABOVE IS THE ADDED PART -->
+</div>
+{% endblock content %}

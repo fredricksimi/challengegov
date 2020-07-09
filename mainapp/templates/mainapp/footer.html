@@ -1,0 +1,63 @@
+<!-- ======= Footer ======= -->
+<footer id="footer">
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-4 col-md-6">
+          <div class="footer-info">
+            <h4>Contact Details</h4>
+            <p><strong>Location:</strong><br>
+              AICAD Complex, Block C, Suite 10, JKUAT Main Campus, Juja, Kenya <br>
+              <strong>Phone:</strong><br> +254 726 172 847, +254 722 840 993<br>
+              <strong>Email:</strong><br>info@fundsbeeline.com<br>
+            </p><br>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><i class="fas fa-chevron-right"></i>&nbsp; <a href="{% url 'mainapp:homepage' %}">Home</a></li>
+            <li><i class="fas fa-chevron-right"></i>&nbsp; <a href="{% url 'mainapp:about' %}">About us</a></li>
+            <li><i class="fas fa-chevron-right"></i>&nbsp; <a href="{% url 'news:news' %}">News</a></li>
+            <li><i class="fas fa-chevron-right"></i>&nbsp; <a href="{% url 'mainapp:privacy_policy' %}">Privacy policy</a></li>
+          </ul>
+        </div>
+
+
+        <div class="col-lg-4 col-md-6 footer-newsletter">
+          <h4>Our Newsletter</h4>
+          <p>We give you latest news on research and technology everyday from our sources around the world</p>
+
+            <form enctype="multipart/form-data" method="post" action="/newsletter/habahaba/subscribe/">
+              {% csrf_token %}
+              <input id="id_email_field" type="email" name="email_field" required="" placeholder="Email">
+              <input id="id_submit" name="submit" type="submit" value="Subscribe" disabled>
+            </form>
+
+
+
+        </div>
+
+      </div>
+      <br><br>
+        <div class="social-links mt-6"><center>
+          <p>Follow Us:&nbsp;&nbsp;
+          <a href="https://twitter.com/ResearchBeeline" class="twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.facebook.com/ResearchBeeline" class="facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="fab fa-skype"></i></a>
+          <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a></p></center>
+
+        </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="copyright">
+
+      &copy; Copyright <strong><span><script>document.write(new Date().getFullYear());</script></span></strong>. Research Beeline Limited
+    </div>
+  </div>
+</footer><!-- End Footer -->

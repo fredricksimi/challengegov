@@ -1,0 +1,50 @@
+{% extends "mainapp/base.html" %}
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+<style>
+
+  .social-button {
+      font-size: 14px;
+      font-weight: 500;
+      background-color: #fff;
+      color: rgba(0,0,0,0.54);
+      border-radius: 6px;
+      box-shadow: 0 1px 3px 1px rgba(0,0,0,0.24), 0 9px 12px -6px rgba(0,0,0,.38);
+      height: 40px;
+      padding: 12px;
+      padding-left: 30px;
+      position: relative;
+      outline: 0;
+      box-sizing: border-box;
+      text-align: center;
+  }
+  </style>
+<br>
+<br><br>
+<h3 class="text-center" style="font-family: 'FK Grotesk', sans-serif;"><b>Sign Up</b></h3><br>
+<br>
+<div class="container">
+  <div class="row">
+  <div class="col-sm-3  col-xs-3"></div>
+  <div class="col-sm-6  col-xs-6 form-group">
+    <p class="text-center">Already have an account? Then please <a href="{% url 'users:account_login' %}">Sign in</a>.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <center><button  type="submit" class="btn btn-primary" style="background-color: rgb(14, 84, 255);">Sign Up</button> &nbsp;&nbsp;&nbsp;<a href="{% url 'mainapp:homepage' %}">Go back home</a>
+    </form>
+    <br><br><br>
+    <p class="small text-center">Or Login with</p>
+    <a href="{% provider_login_url 'google' %}" class="text-center">
+      <img src="{% static 'img/google.png' %}" class="img-fluid"
+      style="border-radius:5px;width:180px;height:auto; box-shadow: 2px 4px 2px rgba(0,0,0,0.14);"></center>
+  </div>
+  <div class="col-sm-3  col-xs-3"></div>
+  </div>
+</div>
+<br><br>
+{% endblock %}

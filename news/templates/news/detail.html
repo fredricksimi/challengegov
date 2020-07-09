@@ -1,0 +1,71 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+
+{% block content %}
+{% include 'mainapp/navbar.html' %}
+<style>
+    .dark-img {
+        position: relative;
+        width: 300px;
+    }
+
+    .dark-img img {
+        display: block;
+        width: 100%;
+    }
+
+    .dark-img::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        background: rgba(0, 0, 0, .2);
+    }
+</style>
+
+<br><br><br><br>
+<div class="dark-img"
+    style="width:100%;height:450px;background:url('{{news_post.banner_image.url}}');background-size: cover; background-repeat: no-repeat;">
+    <h1 style="padding-top:180px;color:#fff;" class="text-center">{{news_post.title}}</h1>
+    <div class="clo-sm-3" style="text-align: right; padding: 35px;">
+    </div>
+</div>
+
+<div style="height: 63px;width:100%;background-color:#fafafa;">
+    <p class="text-center pt-3 mx-8"><span style="font-size:15px; vertical-align:super">Share this post now</span>
+        &nbsp;&nbsp;
+        <a href="whatsapp://send?text=http://localhost:8000/{{news_post.get_absolute_url}}" target="_blank"
+            style="color:#41e75f;"><i class="ri-whatsapp-line px-2" style="font-size:22px;"></i></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:8000/{{news_post.get_absolute_url}}"
+            target="_blank" style="color:#4267b2;"><i class="ri-facebook-line px-2" style="font-size:22px;"></i></a>
+        <a href="https://twitter.com/share?url=http://localhost:8000/{{news_post.get_absolute_url}}" target="_blank"
+            style="color:#5da9dd;"><i class="ri-twitter-line px-2" style="font-size:22px;"></i></a>
+    </p>
+</div><br>
+
+<section>
+
+    <div class="container">
+        <div class="row">
+            <br>
+            <div class="col-lg-12">
+                
+                <p>Posted on <b>{{news_post.date_posted|date}}</b></p>
+                <p>
+                <h4><u>{{news_post.title}}</u></h4></p>
+            </div>
+            <div class="col-lg-12">
+                <p>
+                {{news_post.body|safe}}
+                </p><br>
+            </div>
+            <div class="col-sm-6"></div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

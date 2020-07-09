@@ -1,0 +1,80 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+{% block content %}
+
+{% include 'mainapp/navbar.html' %}
+<div style="width:100%; height: 200px; background-color:#fff;">
+  <p class="text-center" style="color:#000;padding-top:125px;font-size: 28px!important; font-family: 'Gilroy';">News</p>
+</div>
+<div class="container">
+  <div class="row">
+    {% for news in news_posts.object_list %}
+    {% if not news.outsourced_news_link %}
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group" data-aos="fade-left" data-aos-delay="100">
+      <div class="card">
+        <img class="card-img-top img-fluid" src="{{news.banner_image.url}}" alt="" style="height:200px;width:100%;">
+        <div class="card-body">
+          <p class="text-muted card-text small">Posted on {{news.date_posted|date}}</p>
+          <h5 class="card-text"><b><a href="{{news.get_absolute_url}}" target="_blank" >{{news.title}}</a></b></h5>
+          <div class="description pt-3" style="position:relative">
+            {% if news.body %}
+            <p class="text-muted small card-text pt-6">{{news.body|truncatechars:"150"|safe}}</p>
+            {% else %}
+            <p class="text-muted small card-text pt-6">{{news.summary|truncatechars:"150"|safe}}</p>
+            {% endif %}
+          </div>
+          <p class="card-text text-muted small pt-3">
+          <span style="background-color:#eb0678;border-radius:10%;padding:3px;color:#fff;">
+            <a href="{{news.get_absolute_url}}" target="_blank" style="color:#fff!important;">Read More</a>
+          </span>
+          </p>
+        </div>
+      </div>
+    </div><br>
+    {% else %}
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group" data-aos="fade-left" data-aos-delay="100">
+      <div class="card">
+        <img class="card-img-top img-fluid" src="{{news.banner_image.url}}" alt="" style="height:200px;width:100%;">
+        <div class="card-body">
+          <p class="text-muted card-text small">Posted on {{news.date_posted|date}}</p>
+          <h5 class="card-text"><b><a href="{{news.outsourced_news_link}}" target="_blank" >{{news.title}}</a></b></h5>
+          <div class="description pt-3" style="position:relative">
+            <p class="text-muted small card-text pt-6">{{news.summary|truncatechars:"150"|safe}}</p>
+          </div>
+          <p class="card-text text-muted small pt-3">
+          <span style="background-color:#eb0678;border-radius:10%;padding:3px;color:#fff;">
+            <a href="{{news.outsourced_news_link}}" target="_blank" style="color:#fff!important;">Read More</a>
+          </span>
+          </p>
+        </div>
+      </div>
+    </div><br>
+    {% endif %}
+    {% endfor %}
+  </div>
+<!-- THIS BELOW IS THE ADDED PART -->
+<br><br><br>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+  {% if news_posts.has_previous %}
+  <li class="page-item"><a class="page-link" tabindex="-1" href="?page={{news_posts.previous_page_number}}">Previous</a></li>
+  {% endif %}
+  {% for pg in news_posts.paginator.page_range %}
+    {% if news_posts.number == pg %}
+      <li class="active page-item"><a class="page-link" href="?page={{pg}}">{{pg}}</a></li>
+    {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{pg}}">{{pg}}</a></li>
+    {% endif %}
+  {% endfor %}
+  {% if news_posts.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{news_posts.next_page_number}}">Next</a></li>
+  {% endif %}
+</ul>
+</nav>
+
+<!-- THIS ABOVE IS THE ADDED PART -->
+</div><br><br>
+
+{% include 'mainapp/footer.html' %}
+{% endblock content %}

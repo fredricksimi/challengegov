@@ -1,0 +1,60 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'mainapp/navbar.html' %}
+<div style="width:100%; height: 200px; background-color:#fff;">
+  <p class="text-center" style="color:#000;padding-top:125px;font-size: 28px!important; font-family: 'Gilroy';">Rolling Challenges</p>
+  <center><hr width="10%"></center>
+  <div style="background-color: #fff">
+    <br><br>
+  <p class="text-center" style="font-size: 16px!important; font-family: 'FK Grotesk';">AVAILABLE CATEGORIES</p><br>
+  <div class="container">
+  <div class="row" >
+    <ul class="list-inline">
+      {% for tag in the_tags.all %}
+      <li class="list-inline-item" style="font-size: 16px!important; margin-top:10px; margin-bottom:20px;">
+        <span style="background-color: rgb(242, 242, 242); padding: 5px 10px; border-radius: 3px; ">
+          <a href="{% url 'mainapp:tagged' tag.id %}" style="color:rgb(117, 117, 117)!important; font-family: 'FK Grotesk';">{{tag}}</a></span>
+      </li>
+      {% endfor %}
+    </ul>
+    <br>
+  </div><br><br><br>
+  <p class="text-center" ><a href="{% url 'mainapp:allcategories' %}" style="color:rgb(0, 0, 0)!important; font-family: 'FK Grotesk';">View all categories <i class="fas fa-arrow-right"></i></a></p><br><br>
+  </div>
+  </div>
+
+<section>
+<div class="container">
+  <div class="row">
+    {% for challenge in challenges %}
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group" data-aos="fade-left" data-aos-delay="100">
+      <div class="card">
+        <img class="card-img-top img-fluid" src="{{challenge.image.url}}" alt="" style="height:200px;width:100%;">
+        <div class="card-body">
+          <p class="card-text" style="color:deepskyblue;">{{challenge.offered_by}}</p>
+          <h5 class="card-text">{{challenge.title}}</h5>
+          <div class="description pt-3" style="position:relative">
+            <p class="text-muted small card-text pt-6">{{challenge.challenge_summary|truncatechars:"100"|safe}}</p>
+          </div>
+          <p class="card-text  small pt-3">Status: 
+          <span style="background-color:{{bbcolor}};border-radius:10%;padding:3px;color:{{ccolor}};">{{challenge.status}}</span>
+          </p>
+          <p class="card-text text-muted small"><i class="ri-trophy-fill ri-1x small"></i>&nbsp;&nbsp;Prize: {{challenge.prize|truncatechars:"100"}}</p>
+          <p class="card-text text-muted small">
+            <img src="{% static 'img/time.png' %}" class="img-fluid" style="width:auto; height:16px; margin-top: -5px;">&nbsp;
+            No Time Limit
+          </p>
+
+          <div class="">
+            <a href="{% url 'mainapp:detail' challenge.id challenge.slug %}"><button class="btn btn-primary btn-sm btn-block">View Details</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</section>
+{% endblock content %}

@@ -1,0 +1,130 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+{% include 'mainapp/navbar.html' %}
+<div style="width:100%;height:350px;background:url('../../static/img/download.png');">
+  <h1 style="padding-top:165px;color:#fff;" class="text-center">NEWS</h1>
+</div>
+  <br><br>
+  <section id="features" class="features">
+    <div class="container" data-aos="fade-up">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group" data-aos="fade-left" data-aos-delay="100">
+          <div class="card">
+            <img class="card-img-top img-fluid" src="{% static 'img/img1.jpg' %}" alt="" style="height:200px;width:100%;">
+            <div class="card-body">
+              <p class="text-muted card-text small">Posted on 25-May-2020</p>
+              <h5 class="card-text"><b><a href="https://www.fundsbeeline.com/News/readNews/MrfjDXpORb">Call For Research Managers Professional Recognition Awards</a></b></h5>
+              <div class="description pt-3" style="position:relative">
+                <p class="text-muted small card-text pt-6">The International Professional Recognition Council (IPRC) is calling on research managers to apply for profess...</p>
+              </div>
+              <p class="card-text text-muted small pt-3">
+              <span style="background-color:#eb0678;border-radius:10%;padding:3px;color:#fff;">
+                <a href="https://www.fundsbeeline.com/News/readNews/MrfjDXpORb" target="_blank" style="color:#fff!important;">Read More</a>
+              </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group" data-aos="fade-left" data-aos-delay="100">
+          <div class="card">
+            <img class="card-img-top img-fluid" src="{% static 'img/img2.jpg' %}" alt="" style="height:200px;width:100%;">
+            <div class="card-body">
+              <p class="text-muted card-text small">Posted on 17-May-2020</p>
+              <h5 class="card-text"><b><a href="https://www.fundsbeeline.com/News/readNews/YWhDaCeIkv">PASET RSIF Scholarships For PhD Students In Sub-Saharan Africa Now Open</a></b></h5>
+              <div class="description pt-3" style="position:relative">
+                <p class="text-muted small card-text pt-6">Over 100 talented African scientists interested in pursuing doctoral training in...</p>
+              </div>
+              <p class="card-text text-muted small pt-3">
+              <span style="background-color:#eb0678;border-radius:10%;padding:3px;color:#fff;">
+                <a href="https://www.fundsbeeline.com/News/readNews/YWhDaCeIkv" target="_blank" style="color:#fff!important;">Read More</a>
+              </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group" data-aos="fade-left" data-aos-delay="100">
+          <div class="card">
+            <img class="card-img-top img-fluid" src="{% static 'img/img3.jpg' %}" alt="" style="height:200px;width:100%;">
+            <div class="card-body">
+              <p class="text-muted card-text small">Posted on 16-May-2020</p>
+              <h5 class="card-text"><b><a href="https://www.fundsbeeline.com/News/readNews/zjwXQygpTY">ANR Launches Call For The Partnerships With African Higher Education Programs</a></b></h5>
+              <div class="description pt-3" style="position:relative">
+                <p class="text-muted small card-text pt-6">French National Research Agency (ANR) has launched the call for projects Partner...</p>
+              </div>
+              <p class="card-text text-muted small pt-3">
+              <span style="background-color:#eb0678;border-radius:10%;padding:3px;color:#fff;">
+                <a href="https://www.fundsbeeline.com/News/readNews/zjwXQygpTY" target="_blank" style="color:#fff!important;">Read More</a>
+              </span>
+              </p>
+            </div>
+          </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group" data-aos="fade-left" data-aos-delay="100">
+        <div class="card">
+          <img class="card-img-top img-fluid" src="{% static 'img/img4.jpg' %}" alt="" style="height:200px;width:100%;">
+          <div class="card-body">
+            <p class="text-muted card-text small">Posted on 10-May-2020</p>
+            <h5 class="card-text"><b><a href="https://www.fundsbeeline.com/News/readNews/uZejiPdVmq">Countries Pledge €7.4bn For COVID-19 Vaccines</a></b></h5>
+            <div class="description pt-3" style="position:relative">
+              <p class="text-muted small card-text pt-6">The European Commission hosted a virtual conference on 4th May to raise fun...</p>
+            </div>
+            <p class="card-text text-muted small pt-3">
+            <span style="background-color:#eb0678;border-radius:10%;padding:3px;color:#fff;">
+              <a href="https://www.fundsbeeline.com/News/readNews/uZejiPdVmq" target="_blank" style="color:#fff!important;">Read More</a>
+            </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group" data-aos="fade-left" data-aos-delay="100">
+        <div class="card">
+          <img class="card-img-top img-fluid" src="{% static 'img/img5.jpg' %}" alt="" style="height:200px;width:100%;">
+          <div class="card-body">
+            <p class="text-muted card-text small">Posted on 08-May-2020</p>
+            <h5 class="card-text"><b><a href="https://www.fundsbeeline.com/News/readNews/rnTWPzVDfe">NIH Abruptly Cuts Funding For A Coronavirus Research Project Involving Chinese Scientists</a></b></h5>
+            <div class="description pt-3" style="position:relative">
+              <p class="text-muted small card-text pt-6">The research community has expressed alarm after the National Institutes of Heal...</p>
+            </div>
+            <p class="card-text text-muted small pt-3">
+            <span style="background-color:#eb0678;border-radius:10%;padding:3px;color:#fff;">
+              <a href="https://www.fundsbeeline.com/News/readNews/rnTWPzVDfe" style="color:#fff!important;">Read More</a>
+            </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group" data-aos="fade-left" data-aos-delay="100">
+        <div class="card">
+          <img class="card-img-top img-fluid" src="{% static 'img/img6.jpg' %}" alt="" style="height:200px;width:100%;">
+          <div class="card-body">
+            <p class="text-muted card-text small">Posted on 28-April-2020</p>
+            <h5 class="card-text"><b><a href="https://www.fundsbeeline.com/News/readNews/GJHySlonWf">African Universities Steps Up Support In Fight Against COVID-19</a></b></h5>
+            <div class="description pt-3" style="position:relative">
+              <p class="text-muted small card-text pt-6">The research community has expressed alarm after the National Institutes of Heal...</p>
+            </div>
+            <p class="card-text text-muted small pt-3">
+            <span style="background-color:#eb0678;border-radius:10%;padding:3px;color:#fff;">
+              <a href="https://www.fundsbeeline.com/News/readNews/GJHySlonWf" style="color:#fff!important;">Read More</a>
+            </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+      <br><br><br>
+  </section>
+{% include 'mainapp/footer.html' %}
+{% endblock content %}

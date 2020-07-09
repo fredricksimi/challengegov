@@ -1,0 +1,61 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'mainapp/navbar.html' %}
+<div style="width:100%; height: 200px; background-color:#fff;">
+  <p class="text-center" style="color:#000;padding-top:125px;font-size: 38px!important; font-family: 'Gilroy';">About Us</p>
+  <center><hr width="10%"></center>
+</div>
+    <section id="features" class="features">
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+          <div class="image col-lg-6" style='background-image: url("../../static/img/img4.jpg");' data-aos="fade-right"></div>
+          <div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
+            <div class="icon-box mt-5 mt-lg-0" data-aos="zoom-in" data-aos-delay="150">
+              <i class="bx bx-receipt"></i>
+              <h4>What we do</h4>
+              <p>Our main mandate is to connect researchers in Africa with opportunities.
+               It is our duty to ensure that our researchers are made aware of every opportunity
+               available for their growth; be it grants, fellowships, mentor-ship or any form of
+                support they are eligible for.Apart from informing, it is also our purpose to play
+                our part in tackling other serious challenges that have been identified to hamper
+                research advancement in the region. We avail funding news and grant management online
+                resources aimed at supporting postgraduate students, faculty and research managers in
+                our institutions. We aspire to be a sort of think tank on how the continent can address
+                 the challenges and emerging opportunities for the good of research in the continent.</p>
+            </div>
+            <div class="icon-box mt-5" data-aos="zoom-in" data-aos-delay="150">
+              <i class="bx bx-cube-alt"></i>
+              <h4>Challenges</h4>
+              <p>we also use this platform to post the various 
+              challenges African continent has especially as a result of the
+                Covid-19 pandemic.  
+            </p>
+            </div>
+            <div class="icon-box mt-5" data-aos="zoom-in" data-aos-delay="150">
+              <i class="bx bx-images"></i>
+              <h4>Africa</h4>
+              <p>We base our image mostly to African countries to enable the continent grow in terms of reseach</p>
+            </div>
+            <div class="icon-box mt-5" data-aos="zoom-in" data-aos-delay="150">
+              <i class="bx bx-shield"></i>
+              <h4>Our Mission</h4>
+              <p>To enhance research capacity for institutions in Africa as well as the quantity
+                of PhD graduates in African Universities.
+              </p>
+            </div>
+            <div class="icon-box mt-5" data-aos="zoom-in" data-aos-delay="150">
+              <i class="bx bx-shield"></i>
+              <h4>Our Vision</h4>
+              <p>To be the most trusted source of funding information insight
+                by reseachers and research managers to improve the quality of life in Africa.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div><br><br>
+    </section>
+{% include 'mainapp/footer.html' %}
+{% endblock content%}

@@ -1,0 +1,80 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'mainapp/navbar.html' %}
+<div style="width:100%; height: 200px; background-color:#fff;">
+  <p class="text-center" style="color:#000;padding-top:125px;font-size: 28px!important; font-family: 'Gilroy';">Archived Challenges</p>
+  <center><hr width="10%"></center>
+  <div style="background-color: #fff">
+    <br><br>
+  <p class="text-center" style="font-size: 16px!important; font-family: 'FK Grotesk';">AVAILABLE CATEGORIES</p><br>
+  <div class="container">
+  <div class="row" >
+    <ul class="list-inline">
+      {% for tag in the_tags.all %}
+      <li class="list-inline-item" style="font-size: 16px!important; margin-top:10px; margin-bottom:20px;">
+        <span style="background-color: rgb(242, 242, 242); padding: 5px 10px; border-radius: 3px; ">
+          <a href="{% url 'mainapp:tagged' tag.id %}" style="color:rgb(117, 117, 117)!important; font-family: 'FK Grotesk';">{{tag}}</a></span>
+      </li>
+      {% endfor %}
+    </ul>
+    <br>
+  </div><br><br><br>
+  <p class="text-center" ><a href="{% url 'mainapp:allcategories' %}" style="color:rgb(0, 0, 0)!important; font-family: 'FK Grotesk';">View all categories <i class="fas fa-arrow-right"></i></a></p><br><br>
+  </div>
+  </div>
+
+<section>
+<div class="container">
+  <div class="row">
+    {% for challenge in challenges.object_list %}
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group" data-aos="fade-left" data-aos-delay="100">
+      <div class="card">
+        <img class="card-img-top img-fluid" src="{{challenge.image.url}}" alt="" style="height:200px;width:100%;">
+        <div class="card-body">
+          <p class="card-text" style="color:deepskyblue;">{{challenge.offered_by}}</p>
+          <h5 class="card-text">{{challenge.title}}</h5>
+          <div class="description pt-3" style="position:relative">
+            <p class="text-muted small card-text pt-6">{{challenge.challenge_summary|truncatechars:"130"|safe}}</p>
+          </div>
+          <p class="card-text small pt-3">Status: 
+          <span style="background-color: {{bcolor}};border-radius:10%;padding:3px;color:{{color}};">{{challenge.status}}</span>
+          </p>
+
+          <div class="">
+            <a href="{% url 'mainapp:detail' challenge.id challenge.slug %}"><button class="btn btn-primary btn-sm btn-block">View Details</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+<!-- THIS BELOW IS THE ADDED PART -->
+<br><br><br>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+  {% if challenges.has_previous %}
+  <li class="page-item"><a class="page-link" tabindex="-1" href="?page={{challenges.previous_page_number}}">Previous</a></li>
+  {% endif %}
+  {% for pg in challenges.paginator.page_range %}
+    {% if challenges.number == pg %}
+      <li class="active page-item"><a class="page-link" href="?page={{pg}}">{{pg}}</a></li>
+    {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{pg}}">{{pg}}</a></li>
+    {% endif %}
+  {% endfor %}
+  {% if challenges.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{challenges.next_page_number}}">Next</a></li>
+  {% endif %}
+</ul>
+</nav>
+
+<!-- THIS ABOVE IS THE ADDED PART --> 
+  
+</div>
+</section>
+{% include 'mainapp/footer.html' %}
+{% endblock content %}

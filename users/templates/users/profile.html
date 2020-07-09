@@ -1,0 +1,45 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+{% include 'mainapp/navbar.html' %}
+<div style="width:100%;height:350px;background:url('../../static/img/download.png');">
+  <h1 style="padding-top:195px;color:#fff;font-family: 'Gilroy';" class="text-center">Profile</h1>
+</div>
+<br><br>
+<div class="container">
+  <p class="">Your email: {{ user.email }}</p>
+  		<form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mx-auto">
+            
+            <h2 class="account-heading"></h2>
+            
+            
+            {{p_form.sex|as_crispy_field}}
+            {{p_form.age_group|as_crispy_field}}
+
+          </div>
+          <div class="form-group col-lg-4 col-md-12 col-sm-12 col-xs-12 mx-auto">
+            {{p_form.first_name|as_crispy_field}}
+            {{p_form.last_name|as_crispy_field}}
+            
+            
+          </div>
+          <div class="form-group col-lg-4 col-md-12 col-sm-12 col-xs-12 mx-auto">
+            {{p_form.nationality|as_crispy_field}}
+            {{p_form.country_of_residence|as_crispy_field}}
+            {{p_form.organization|as_crispy_field}}
+          </div>
+
+        </div>
+        <br>
+        <center><button class="btn btn-primary" type="submit">Update</button></center>
+      </form>
+    </div>
+      <br><br><br>
+
+{% endblock content %}

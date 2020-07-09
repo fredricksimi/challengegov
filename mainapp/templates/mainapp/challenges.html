@@ -1,0 +1,110 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'mainapp/navbar.html' %}
+<div class="text-center" style="color:#000;padding-top:125px; font-family: 'Gilroy';">
+  <p style="font-size: 28px!important;">All Challenges</p>
+  <center><hr width="10%"></center>
+  <div style="background-color: #fff">
+    <br><br>
+  <p class="text-center" style="font-size: 16px!important; font-family: 'FK Grotesk';">AVAILABLE CATEGORIES</p><br>
+  <div class="container">
+  <div class="row" >
+    <ul class="list-inline">
+      {% for tag in the_tags.all %}
+      <li class="list-inline-item" style="font-size: 16px!important; margin-top:10px; margin-bottom:20px;">
+        <span style="background-color: rgb(242, 242, 242); padding: 5px 10px; border-radius: 3px; ">
+          <a href="{% url 'mainapp:tagged' tag.id %}" style="color:rgb(117, 117, 117)!important; font-family: 'FK Grotesk';">{{tag}}</a></span>
+      </li>
+      {% endfor %}
+    </ul>
+    <br>
+  </div><br><br><br>
+  <p class="text-center" ><a href="{% url 'mainapp:allcategories' %}" style="color:rgb(0, 0, 0)!important; font-family: 'FK Grotesk';">View all categories <i class="fas fa-arrow-right"></i></a></p><br><br>
+  </div>
+  </div>
+</div>
+<section>
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      {% for post in posts.object_list %}
+      <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group " data-aos="fade-left" data-aos-delay="100">
+        <div class="card mt-5">
+          <img class="card-img-top img-fluid" src="{{post.image.url}}" alt="" style="height:200px;width:100%;">
+          <div class="card-body">
+            <p class="card-text" style="color:deepskyblue;">{{post.offered_by}}</p>
+            <h5 class="card-text">{{post.title}}</h5>
+            <div class="description pt-3" style="position:relative">
+              <p class="text-muted small card-text pt-6">{{post.challenge_summary|truncatechars:"100"|safe}}</p>
+            </div>
+            <p class="card-text small pt-3">Status:
+              {% if post.status == 'Open' %}
+              <span style="background-color:{{obcolor}};border-radius:10%;padding:3px;color:{{ocolor}};">{{post.status}}</span>
+              {% elif post.status == 'Archived' %}
+              <span style="background-color:{{abcolor}};border-radius:10%;padding:3px;color:{{acolor}};">{{post.status}}</span>
+              {% elif post.status == 'Coming Soon' %}
+              <span style="background-color:{{pbcolor}};border-radius:10%;padding:3px;color:{{pcolor}};">{{post.status}}</span>
+              {% else %}
+              <span style="background-color:#eb0678;border-radius:10%;padding:3px;color:#fff;">{{post.status}}</span>
+              {% endif %}
+            </p>
+            {% if post.status == 'Open' or post.status == 'Rolling' or post.status == 'Coming Soon' %}
+            <p class="card-text text-muted small"><i class="ri-trophy-fill ri-1x small"></i>&nbsp;&nbsp;Prize: {{post.prize|truncatechars:"100"}}</p>
+            {% endif %}
+
+            {% if post.status == 'Open' %}
+            <p class="card-text text-muted small">
+              <img src="{% static 'img/time.png' %}" class="img-fluid" style="width:auto; height:16px; margin-top: -5px;">&nbsp;
+                  {{post.open_until|timeuntil:post.date_posted}} left
+            </p>
+
+            {% elif post.status == 'Rolling' %}
+            <p class="card-text text-muted small">
+              <img src="{% static 'img/time.png' %}" class="img-fluid" style="width:auto; height:16px; margin-top: -5px;">&nbsp;
+              No Time Limit
+            </p>
+            {% elif post.status == 'Archived' %}
+            <p class="text-center"><span style="background-color:#f48380;color:white;padding: 2px 3px;border-radius:2px;">Challenge Closed</span></p>
+            <p class="card-text text-muted small"><br>
+            </p>
+            {% elif post.status == 'Coming Soon' %}
+            <p class="text-center">Application window Closed</p>
+            <p class="card-text text-muted small">
+            </p>
+            {% endif %}
+            <div class="">
+              <a href="{% url 'mainapp:detail' post.id post.slug %}"><button class="btn btn-primary btn-sm btn-block">View Details</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+<!-- THIS BELOW IS THE ADDED PART -->
+<br><br><br>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+  {% if posts.has_previous %}
+  <li class="page-item"><a class="page-link" tabindex="-1" href="?page={{posts.previous_page_number}}">Previous</a></li>
+  {% endif %}
+  {% for pg in posts.paginator.page_range %}
+    {% if posts.number == pg %}
+      <li class="active page-item"><a class="page-link" href="?page={{pg}}">{{pg}}</a></li>
+    {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{pg}}">{{pg}}</a></li>
+    {% endif %}
+  {% endfor %}
+  {% if posts.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{posts.next_page_number}}">Next</a></li>
+  {% endif %}
+</ul>
+</nav>
+
+<!-- THIS ABOVE IS THE ADDED PART -->
+  </div>
+</section>
+
+{% include 'mainapp/footer.html' %}
+{% endblock content %}

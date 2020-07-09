@@ -1,0 +1,108 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+
+{% block content %}
+{% include 'mainapp/navbar.html' %}
+<div style="background-color: #fff">
+  <br><br><br><br><br><br>
+<p class="text-center" style="font-size: 16px!important; font-family: 'FK Grotesk';">AVAILABLE CATEGORIES</p><br>
+<div class="container">
+<div class="row" >
+  <ul class="list-inline">
+    {% for tag in the_tags.all %}
+    <li class="list-inline-item" style="font-size: 16px!important; margin-top:10px; margin-bottom:20px;">
+      <span style="background-color: rgb(242, 242, 242); padding: 5px 10px; border-radius: 3px; ">
+        <a href="{% url 'mainapp:tagged' tag.id %}" style="color:rgb(117, 117, 117)!important; font-family: 'FK Grotesk';">{{tag}}</a></span>
+    </li>
+    {% endfor %}
+  </ul>
+  <br>
+</div><br><br><br>
+<p class="text-center" ><a href="{% url 'mainapp:allcategories' %}" style="color:rgb(0, 0, 0)!important; font-family: 'FK Grotesk';">View all categories <i class="fas fa-arrow-right"></i></a></p><br><br>
+</div>
+</div>
+<section>
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+            {% for challenge in challenges.object_list %}
+            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group " data-aos="fade-left" data-aos-delay="100">
+                <div class="card mt-5">
+                    <img class="card-img-top img-fluid" src="{{challenge.image.url}}" alt=""
+                        style="height:200px;width:100%;">
+                    <div class="card-body">
+                        <p class="card-text" style="color:deepskyblue;">{{challenge.offered_by}}</p>
+                        <h5 class="card-text">{{challenge.title}}</h5>
+                        <div class="description pt-3" style="position:relative">
+                            <p class="text-muted small card-text pt-6">
+                                {{challenge.challenge_summary|truncatechars:"130"|safe}}</p>
+                        </div>
+                        <p class="card-textvsmall pt-3">Status:
+                            {% if challenge.status == 'Open' %}
+                            <span
+                                style="background-color:#51bb35;border-radius:10%;padding:3px;color:#fff;">{{challenge.status}}</span>
+                            {% elif challenge.status == 'Archived' %}
+                            <span
+                                style="background-color:#d61111;border-radius:10%;padding:3px;color:#fff;">{{challenge.status}}</span>
+                            {% elif challenge.status == 'Coming Soon' %}
+                            <span
+                                style="background-color:#f5cc04;border-radius:10%;padding:3px;color:#000;">{{challenge.status}}</span>
+                            {% else %}
+                            <span
+                                style="background-color:#eb0678;border-radius:10%;padding:3px;color:#fff;">{{challenge.status}}</span>
+                            {% endif %}
+                        </p>
+                        <p class="card-text text-muted small"><i
+                                class="ri-trophy-fill ri-1x small"></i>&nbsp;&nbsp;Prize {{challenge.prize}}</p>
+                                {% if challenge.status == 'Open' %}
+                                <p class="card-text text-muted small">
+                                  <img src="{% static 'img/time.png' %}" class="img-fluid" style="width:auto; height:16px; margin-top: -5px;">&nbsp;
+                                      {{challenge.open_until|timeuntil:challenge.date_posted}} left
+                                </p>
+
+                                {% elif challenge.status == 'Rolling' %}
+                                <p class="card-text text-muted small">
+                                  <img src="{% static 'img/time.png' %}" class="img-fluid" style="width:auto; height:16px; margin-top: -5px;">&nbsp;
+                                  No Time Limit
+                                </p>
+                                {% elif challenge.status == 'Archived' %}
+                                <p class="text-center"><span style="background-color:#f48380;color:white;padding: 2px 3px;border-radius:2px;">Challenge Closed</span></p>
+                                <p class="card-text text-muted small"><br>
+                                </p>
+                                {% endif %}
+                        <div class="">
+                            <a href="{% url 'mainapp:detail' challenge.id challenge.slug %}"><button
+                                    class="btn btn-primary btn-sm btn-block">View Details</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- THIS BELOW IS THE ADDED PART -->
+        <br><br><br>
+
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+          {% if challenges.has_previous %}
+          <li class="page-item"><a class="page-link" tabindex="-1" href="?page={{challenges.previous_page_number}}">Previous</a></li>
+          {% endif %}
+          {% for pg in challenges.paginator.page_range %}
+            {% if challenges.number == pg %}
+              <li class="active page-item"><a class="page-link" href="?page={{pg}}">{{pg}}</a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{pg}}">{{pg}}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if challenges.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{challenges.next_page_number}}">Next</a></li>
+          {% endif %}
+        </ul>
+        </nav>
+
+        <!-- THIS ABOVE IS THE ADDED PART -->
+    </div>
+</section>
+
+{% include 'mainapp/footer.html' %}
+{% endblock content %}
