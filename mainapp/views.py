@@ -42,7 +42,7 @@ def tagged(request, id):
 
 def home(request):
 
-    latest_challenges = Challenges.objects.all().filter(status='Open').order_by('-date_posted').reverse()[:6]
+    latest_challenges = Challenges.objects.all().filter(status='Open').order_by('-date_posted').reverse()[:12]
     the_tags = ChallengeTag.objects.all()[:12]
 
     context = {
@@ -67,7 +67,7 @@ def all_categories(request):
 def challenges(request):
     posts_list = Challenges.objects.all().filter(Q(status='Open') | Q(status='Rolling')).order_by('-id')
     the_tags = ChallengeTag.objects.all()[:12]
-    paginator = Paginator(posts_list, 6)
+    paginator = Paginator(posts_list, 18)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -101,7 +101,7 @@ def challenges(request):
 def open_challenges(request):
     challenges = Challenges.objects.all().filter(status='Open')
     the_tags = ChallengeTag.objects.all()[:12]
-    paginator = Paginator(challenges, 6)
+    paginator = Paginator(challenges, 18)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -123,7 +123,7 @@ def open_challenges(request):
 def coming_soon_challenges(request):
     challenges = Challenges.objects.all().filter(status='Coming Soon')
     the_tags = ChallengeTag.objects.all()[:12]
-    paginator = Paginator(challenges, 6)
+    paginator = Paginator(challenges, 18)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -145,7 +145,7 @@ def coming_soon_challenges(request):
 def archived_challenges(request):
     challenges = Challenges.objects.all().filter(status='Archived')
     the_tags = ChallengeTag.objects.all()[:12]
-    paginator = Paginator(challenges, 6)
+    paginator = Paginator(challenges, 18)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -160,6 +160,7 @@ def archived_challenges(request):
         'challenges':posts,
         'bcolor':'#d61111',
         'the_tags':the_tags,
+        'posts':posts,
         'color':'#fff'
         }
     return render(request, 'mainapp/archived-challenges.html', context)
@@ -167,10 +168,22 @@ def archived_challenges(request):
 def rolling_challenges(request):
     challenges = Challenges.objects.all().filter(status='Rolling')
     the_tags = ChallengeTag.objects.all()[:12]
+    paginator = Paginator(challenges, 18)
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except:
+        page = 1
+    try:
+        posts = paginator.page(page)
+    except(EmptyPage, InvalidPage):
+        posts = paginator.page(paginator.num_pages)
+
     context = {
         'challenges':challenges,
         'bbcolor':'#eb0678',
         'the_tags':the_tags,
+        'posts':posts,
         'ccolor':'#fff'
     }
     return render(request, 'mainapp/rolling-challenges.html', context)

@@ -8,5 +8,5 @@ class Command(BaseCommand):
         now = timezone.now()
         for challenge in Challenges.objects.all().iterator():
             if challenge.open_until < now:
-                challenge.status = 'Coming Soon'
+                challenge.status = 'Archived'
                 challenge.save()
