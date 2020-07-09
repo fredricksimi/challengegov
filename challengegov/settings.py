@@ -12,13 +12,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY= config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', cast=bool)
+DEBUG = False
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
+ALLOWED_HOSTS = ['beeline-challenges.com', 'www.beeline-challenges.com', 'localhost', '64.227.8.238']
 
-# CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
-# SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -58,7 +58,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -69,7 +68,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'challengegov.urls'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 TEMPLATES = [
     {
@@ -99,8 +98,12 @@ WSGI_APPLICATION = 'challengegov.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'beelinechallenges',
+	'USER': 'beeline',
+	'PASSWORD': '$$Bee2020@B',
+	'HOST': 'localhost',
+	'PORT':''
     }
 }
 
@@ -178,7 +181,7 @@ USE_TZ = True
 SITE_ID = 1
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = '/home/beeline/myproject/challengegov/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -214,4 +217,5 @@ TINYMCE_DEFAULT_CONFIG = {
     'custom_undo_redo_levels': 10,
 }
 TINYMCE_SPELLCHECKER = True
+
 
