@@ -5,23 +5,8 @@
 {% block content %}
 {% include 'mainapp/navbar.html' %}
 <div style="background-color: #fff">
-  <br><br><br><br><br><br>
-<p class="text-center" style="font-size: 16px!important; font-family: 'FK Grotesk';">AVAILABLE CATEGORIES</p><br>
-<div class="container">
-<div class="row" >
-  <ul class="list-inline">
-    {% for tag in the_tags.all %}
-    <li class="list-inline-item" style="font-size: 16px!important; margin-top:10px; margin-bottom:20px;">
-      <span style="background-color: rgb(242, 242, 242); padding: 5px 10px; border-radius: 3px; ">
-        <a href="{% url 'mainapp:tagged' tag.id %}" style="color:rgb(117, 117, 117)!important; font-family: 'FK Grotesk';">{{tag}}</a></span>
-    </li>
-    {% endfor %}
-  </ul>
-  <br>
-</div><br><br><br>
-<p class="text-center" ><a href="{% url 'mainapp:allcategories' %}" style="color:rgb(0, 0, 0)!important; font-family: 'FK Grotesk';">View all categories <i class="fas fa-arrow-right"></i></a></p><br><br>
-</div>
-</div>
+  <br><br><br><br><br><br><br><br>
+  <p class="text-center" style="font-size: 25px;"><b>Challenges also tagged under: <span style="background-color: rgb(242, 242, 242); padding: 5px 10px; border-radius: 3px; ">{{tag.name}}</span></b></p>
 <section>
     <div class="container" data-aos="fade-up">
         <div class="row">
@@ -34,13 +19,13 @@
                         <p class="card-text" style="color:deepskyblue;">{{challenge.offered_by}}</p>
                         <h5 class="card-text">{{challenge.title}}</h5>
                         <div class="description pt-3" style="position:relative">
-                            <p class="text-muted small card-text pt-6">
-                                {{challenge.challenge_summary|truncatechars:"130"|safe}}</p>
+                            <p class="card-text pt-6">
+                                {{challenge.challenge_summary|truncatechars:"200"|safe}}</p>
                         </div>
-                        <p class="card-textvsmall pt-3">Status:
+                        <p class="card-text small pt-3">Availability:
                             {% if challenge.status == 'Open' %}
                             <span
-                                style="background-color:#51bb35;border-radius:10%;padding:3px;color:#fff;">{{challenge.status}}</span>
+                                style="background-color:#5db97c;border-radius:10%;padding:3px;color:#fff;">{{challenge.status}}</span>
                             {% elif challenge.status == 'Archived' %}
                             <span
                                 style="background-color:#d61111;border-radius:10%;padding:3px;color:#fff;">{{challenge.status}}</span>
@@ -52,22 +37,23 @@
                                 style="background-color:#eb0678;border-radius:10%;padding:3px;color:#fff;">{{challenge.status}}</span>
                             {% endif %}
                         </p>
-                        <p class="card-text text-muted small"><i
-                                class="ri-trophy-fill ri-1x small"></i>&nbsp;&nbsp;Prize {{challenge.prize}}</p>
+                        <p class="card-text "><i
+                                class="ri-trophy-fill ri-1x small" style="color: goldenrod;"></i>&nbsp;&nbsp;Award {{challenge.prize|truncatechars:"30"}}</p>
                                 {% if challenge.status == 'Open' %}
-                                <p class="card-text text-muted small">
-                                  <img src="{% static 'img/time.png' %}" class="img-fluid" style="width:auto; height:16px; margin-top: -5px;">&nbsp;
+                                <p class="card-text">Challenge will be open for the next : <br>
+                                  <span style="color:red">
                                       {{challenge.open_until|timeuntil:challenge.date_posted}} left
+                                </span>
                                 </p>
 
                                 {% elif challenge.status == 'Rolling' %}
                                 <p class="card-text text-muted small">
                                   <img src="{% static 'img/time.png' %}" class="img-fluid" style="width:auto; height:16px; margin-top: -5px;">&nbsp;
-                                  No Time Limit
+                                  <span style=" color: indigo;">No Time Limit</span>
                                 </p>
                                 {% elif challenge.status == 'Archived' %}
                                 <p class="text-center"><span style="background-color:#f48380;color:white;padding: 2px 3px;border-radius:2px;">Challenge Closed</span></p>
-                                <p class="card-text text-muted small"><br>
+                                <p class="card-text"><br>
                                 </p>
                                 {% endif %}
                         <div class="">

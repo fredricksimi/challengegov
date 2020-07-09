@@ -85,9 +85,10 @@
                 <p class="card-text" style="color:deepskyblue;">{{challenge.offered_by}}</p>
                 <h5 class="card-text">{{challenge.title}}</h5>
                 <div class="description pt-3" style="position:relative">
-                  <p class="text-muted small card-text pt-6">{{challenge.challenge_summary|truncatechars:"130"|safe}}</p>
+                  <p class="card-text pt-6">{{challenge.challenge_summary|truncatechars:"200"|safe}}</p>
                 </div>
-                <p class="card-text small pt-3">Status:
+                
+                <p class="card-text small pt-3">Availability:
                   {% if challenge.status == 'Open' %}
                   <span style="background-color:{{obcolor}};border-radius:10%;padding:3px;color:{{ocolor}};">{{challenge.status}}</span>
                   {% elif challenge.status == 'Archived' %}
@@ -98,19 +99,22 @@
                   <span style="background-color:{{pbcolor}};border-radius:10%;padding:3px;color:{{pcolor}};">{{challenge.status}}</span>
                   {% endif %}
                 </p>
-                <p class="card-text text-muted small"><i class="ri-trophy-fill ri-1x small"></i>&nbsp;&nbsp;Prize: {{challenge.prize|truncatechars:"100"}}</p>
+                <p class="card-text"><i class="ri-trophy-fill ri-1x small" style="color:goldenrod;"></i>&nbsp;&nbsp;Award: {{challenge.prize|truncatechars:"30"}}</p>
+                
                 {% if challenge.status == 'Rolling'%}
                 <p class="card-text text-muted small">
-                  <img src="{% static 'img/time.png' %}" class="img-fluid" style="width:auto; height:16px; margin-top: -5px;">&nbsp;
+                  <i class="ri-time-line" style="margin-top: -5px; font-size: 22px;color:red;"></i>&nbsp;
                       No Time Limit
                 </p>
                 {% elif challenge.status == 'Open' %}
-                <p class="card-text text-muted small">
-                  <img src="{% static 'img/time.png' %}" class="img-fluid" style="width:auto; height:16px; margin-top: -5px;">&nbsp;
-                  {{challenge.open_until|timeuntil:challenge.date_posted}} left
+                
+                <p class="card-text">Challenge will be open for the next :<br>
+                  <span style="color:red">
+                    {{challenge.open_until|timeuntil:challenge.date_posted}} left
+                  </span>
                 </p>
+                
                 {% endif %}
-
                 <div class="">
                   <a href="{% url 'mainapp:detail' challenge.id challenge.slug %}"><button class="btn btn-primary btn-sm btn-block">View Details</button></a>
                 </div>

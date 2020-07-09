@@ -12,7 +12,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY= config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['beeline-challenges.com', 'www.beeline-challenges.com', 'localhost', '64.227.8.238']
 
@@ -58,6 +58,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -66,9 +67,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 ROOT_URLCONF = 'challengegov.urls'
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 TEMPLATES = [
     {
@@ -99,9 +101,9 @@ WSGI_APPLICATION = 'challengegov.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'beelinechallenges',
-	'USER': 'beeline',
-	'PASSWORD': '$$Bee2020@B',
+        'NAME': 'challengegov',
+	'USER': 'freddy',
+	'PASSWORD': 'voldermort',
 	'HOST': 'localhost',
 	'PORT':''
     }
@@ -181,7 +183,8 @@ USE_TZ = True
 SITE_ID = 1
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/beeline/myproject/challengegov/static/'
+# STATIC_ROOT = '/home/beeline/myproject/challengegov/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -197,9 +200,13 @@ CKEDITOR_CONFIGS = {
              'widget',
              'dialog', ]),
         'allowedContent': True,
+        'height': '250px',
+        'width': '66%',
+        
 
     },
 }
+
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 # ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.CustomUserCreationForm'
 ACCOUNT_EMAIL_REQUIRED = True

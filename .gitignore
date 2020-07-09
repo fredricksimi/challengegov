@@ -4,6 +4,7 @@ venv/
 media/media_pics/
 media/profile_pics/
 linuxvenv/
+settings.py
 migrations/
 .env
 .env.save

@@ -36,15 +36,15 @@
           <p class="card-text" style="color:deepskyblue;">{{challenge.offered_by}}</p>
           <h5 class="card-text">{{challenge.title}}</h5>
           <div class="description pt-3" style="position:relative">
-            <p class="text-muted small card-text pt-6">{{challenge.challenge_summary|truncatechars:"100"|safe}}</p>
+            <p class="card-text pt-6">{{challenge.challenge_summary|truncatechars:"200"|safe}}</p>
           </div>
-          <p class="card-text  small pt-3">Status: 
+          <p class="card-text pt-3">Availability: 
           <span style="background-color:{{bbcolor}};border-radius:10%;padding:3px;color:{{ccolor}};">{{challenge.status}}</span>
           </p>
-          <p class="card-text text-muted small"><i class="ri-trophy-fill ri-1x small"></i>&nbsp;&nbsp;Prize: {{challenge.prize|truncatechars:"100"}}</p>
+          <p class="card-text text-muted small"><i class="ri-trophy-fill ri-1x small"></i>&nbsp;&nbsp;Award: {{challenge.prize|truncatechars:"30"}}</p>
           <p class="card-text text-muted small">
             <img src="{% static 'img/time.png' %}" class="img-fluid" style="width:auto; height:16px; margin-top: -5px;">&nbsp;
-            No Time Limit
+            <span style=" color: indigo;">No Time Limit</span>
           </p>
 
           <div class="">

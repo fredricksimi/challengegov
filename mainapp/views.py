@@ -50,7 +50,7 @@ def home(request):
     'the_tags':the_tags,
     "home_page": "active",
 
-    'obcolor':'#51bb35',
+    'obcolor':'#5db97c',
     'ocolor':'#fff',
 
     'rbcolor':'#eb0678',
@@ -83,7 +83,7 @@ def challenges(request):
     'posts':posts,
     "challenge_page": "active",
 
-    'obcolor':'#51bb35',
+    'obcolor':'#5db97c',
     'ocolor':'#fff',
 
     'abcolor':'#d61111',
@@ -114,7 +114,7 @@ def open_challenges(request):
 
     context = {
         'challenges':posts,
-        'bcolor':'#51bb35',
+        'bcolor':'#5db97c',
         'the_tags':the_tags,
         'color':'#fff'
         }
@@ -187,8 +187,10 @@ def privacy_policy(request):
 @login_required
 def challenge_detail(request, id, slug):
     the_tags = ChallengeTag.objects.all()
+    allchallenges = Challenges.objects.all().order_by('-date_posted')[:3]
     the_post = get_object_or_404(Challenges, id=id, slug=slug)
-    context = {'the_post':the_post}
+    # related_challenges = Challenges.objects.all().filter(tags=rtags).order_by('-date_posted')[:3]
+    context = {'the_post':the_post, 'allchallenges':allchallenges}
     return render(request, 'mainapp/detail.html', context)
 
 
